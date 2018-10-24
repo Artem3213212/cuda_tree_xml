@@ -61,13 +61,16 @@ def get_headers(filename, lines):
     for i in z:
         if i[0]=='':
             continue
+        if i[0][-1]=='/':
+            zz.append((i[1],len(stack),i[0][:-1],0))   
+            continue         
         if i[0][0]=='/':
             stack.append(i[0][1:])
         else:
             temp=i[0].split(maxsplit=1)[0]
             if stack[-1]==temp:
                 stack.pop()
-            if len(stack)!=1 and temp.lower()!='!doctype':
+            if not((len(stack)==1 and temp.lower()=='!doctype')or(temp.lower()in['?php','?xml'])):
                 zz.append((i[1],len(stack),i[0],0))
     zz.reverse()
     return zz
