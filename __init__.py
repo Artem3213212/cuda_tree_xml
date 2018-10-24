@@ -64,9 +64,11 @@ def get_headers(filename, lines):
         if i[0][0]=='/':
             stack.append(i[0][1:])
         else:
-            if stack[-1]==i[0].split(maxsplit=1)[0]:
+            temp=i[0].split(maxsplit=1)[0]
+            if stack[-1]==temp:
                 stack.pop()
-            zz.append((i[1],len(stack),i[0],0))
+            if len(stack)!=1 and temp.lower()!='!doctype':
+                zz.append((i[1],len(stack),i[0],0))
     zz.reverse()
     return zz
 
