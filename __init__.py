@@ -11,7 +11,7 @@ def get_headers(filename, lines):
     coords=(0,0)
     x=0
     y=-1
-    now,nowword,currtag='','','',''
+    now,nowword,currtag='','',''
     while True:
         y+=1
         if y==len(lines[x]):
