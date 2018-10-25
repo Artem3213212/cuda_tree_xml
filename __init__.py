@@ -70,7 +70,7 @@ def get_headers(filename, lines):
             temp=i[0].split(maxsplit=1)[0]
             if stack[-1]==temp:
                 stack.pop()
-            if not(temp.lower()in['?php','?xml','!doctype']):
+            if not((temp.lower()in['?php','?xml','!doctype'])or(temp[0]=='%' and temp[-1]=='%'))):
                 zz.append((i[1],len(stack),i[0],0))
     zz.reverse()
     return zz
