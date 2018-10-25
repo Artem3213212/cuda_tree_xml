@@ -43,8 +43,14 @@ def get_headers(filename, lines):
                 status,nowword='<!--',''
             elif now=='>':
                 currtag=currtag+nowword[:-1]
+                if currtag.startswith('script'):
+                    status='</script>'
+                elif currtag.startswith('style'):
+                    status='</style>'
+                else:
+                    status=''
                 z.append((currtag,coords))
-                status,nowword='',''
+                nowword=''
             elif now in ["'",'"']:
                 status=now
         elif status=='<!--':
@@ -52,23 +58,16 @@ def get_headers(filename, lines):
                 status,nowword='',''
         elif status in ["'",'"'] and now==status:
             status='<'
-        if status[:1]=='>' and now=='>':
-            status=status[1:]
         if status in['</script>','</style>']and now=='<':
             if lines[x][y:].startswith(status):
                 status=''
         else:
             if now=='<':
-                if lines[x][y:].startswith('<script'):
-                    status='></script>'
-                elif lines[x][y:].startswith('<style'):
-                    status='></style>'
+                status,nowword,coords='<','',x
+                if y+1!=len(lines[x])and lines[x][y+1]in SPACES:
+                    currtag=' '
                 else:
-                    status,nowword,coords='<','',x
-                    if y+1!=len(lines[x])and lines[x][y+1]in SPACES:
-                        currtag=' '
-                    else:
-                        currtag=''
+                    currtag=''
     zz=[]
     stack=[0]
     z.reverse()
@@ -81,7 +80,6 @@ def get_headers(filename, lines):
         if i[0][0]=='/':
             stack.append(i[0][1:])
         else:
-            print(i)
             if i[0][0] ==' ':
                 continue
             temp=i[0].split(maxsplit=1)[0]
