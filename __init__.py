@@ -64,7 +64,11 @@ def get_headers(filename, lines):
                 elif lines[x][y:].startswith('<style'):
                     status='></style>'
                 else:
-                    status,nowword,currtag,coords='<','','',x
+                    status,nowword,coords='<','',x
+                    if y+1!=len(lines[x])and lines[x][y+1]in SPACES:
+                        currtag=' '
+                    else:
+                        currtag=''
     zz=[]
     stack=[0]
     z.reverse()
@@ -77,6 +81,9 @@ def get_headers(filename, lines):
         if i[0][0]=='/':
             stack.append(i[0][1:])
         else:
+            print(i)
+            if i[0][0] ==' ':
+                continue
             temp=i[0].split(maxsplit=1)[0]
             if stack[-1]==temp:
                 stack.pop()
@@ -94,4 +101,3 @@ if __name__=="__main__":
             ss=open(os.path.join("tests",file),encoding='utf-8').read().split('\n')
             for i in get_headers('',ss):
                 print(i)
-            break
