@@ -52,9 +52,19 @@ def get_headers(filename, lines):
                 status,nowword='',''
         elif status in ["'",'"'] and now==status:
             status='<'
+        if status[:1]=='>' and now=='>':
+            status=status[1:]
+        if status in['</script>','</style>']and now=='<':
+            if lines[x][y:].startswith(status):
+                status=''
         else:
             if now=='<':
-                status,nowword,currtag,coords='<','','',x
+                if lines[x][y:].startswith('<script'):
+                    status='></script>'
+                elif lines[x][y:].startswith('<style'):
+                    status='></style>'
+                else:
+                    status,nowword,currtag,coords='<','','',x
     zz=[]
     stack=[0]
     z.reverse()
