@@ -1,3 +1,8 @@
 
+2018.10.26
++ add: skip broken tags like "< tag>"
++ add: skip JS scripts contents
++ add: skip ASP tags <% ... %>
+
 2018.10.24
 initial
