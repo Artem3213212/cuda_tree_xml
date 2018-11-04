@@ -1,5 +1,6 @@
 
 SPACES = ['\f','\n','\r','\t','\v',' ']
+ICON_TAG = 7
 
 def get_headers(filename, lines):
     '''
@@ -75,7 +76,7 @@ def get_headers(filename, lines):
         if i[0]=='':
             continue
         if i[0][-1]=='/':
-            zz.append((i[1],len(stack),i[0][:-1],0))   
+            zz.append((i[1],len(stack),i[0][:-1],ICON_TAG))   
             continue         
         if i[0][0]=='/':
             stack.append(i[0][1:])
@@ -87,7 +88,7 @@ def get_headers(filename, lines):
                 stack.pop()
             # here we ignore <%...%> and <?...?> and <!Doctype...>
             if not (temp[0] in '?!%'):
-                zz.append((i[1],len(stack),i[0],0))
+                zz.append((i[1],len(stack),i[0],ICON_TAG))
     zz.reverse()
     return zz
 
