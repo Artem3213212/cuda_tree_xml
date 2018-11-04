@@ -1,4 +1,7 @@
 
+2018.11.04
+- fix: icon for tree nodes
+
 2018.10.26
 + add: skip broken tags like "< tag>"
 + add: skip JS scripts contents
