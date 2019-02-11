@@ -1,6 +1,6 @@
 [info]
 title=TreeHelper for HTML/XML
-desc=TreeHelper for CudaTree, adds support for HTML and XML lexers
+desc=TreeHelper for HTML and XML lexers
 type=cudatext-plugin
 subdir=cuda_tree_xml
 homepage=https://github.com/Artem3213212/cuda_tree_xml
