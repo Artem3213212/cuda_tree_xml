@@ -9,7 +9,7 @@ def get_headers(filename, lines):
     '''
     status=''
     z=[]
-    coords=(0,0)
+    coords=(0,0,0,0)
     x=0
     y=-1
     now,nowword,currtag='','',''
@@ -64,7 +64,8 @@ def get_headers(filename, lines):
                 status=''
         else:
             if now=='<':
-                status,nowword,coords='<','',x
+                status,nowword='<',''
+                coords=y,x,y+1,x
                 if y+1!=len(lines[x])and lines[x][y+1]in SPACES:
                     currtag=' '
                 else:
